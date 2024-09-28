@@ -1,0 +1,76 @@
+---
+title: "MDD data exploration"
+author: "Heru Handika"
+date: "2024-06-23"
+output: html_document
+---
+
+```{r}
+if (!require(pacman)) {
+  install.packages(pacman)
+}
+
+p_load_gh("hrbrmstr/ggchicklet")
+
+pacman::p_load(here)
+pacman::p_load(ggplot2)
+pacman::p_load(readr)
+pacman::p_load(dplyr)
+pacman::p_load(stringr)
+pacman::p_load(RColorBrewer)
+pacman::p_load(ggExtra)
+pacman::p_load(patchwork)
+
+source(here::here("R", "utils.R"))
+```
+
+## Load Data
+```{r}
+mdd_path <- here::here("data", "MDD_v1_13.csv")
+mdd <- readr::read_csv(mdd_path)
+
+indonesia <- mdd |>
+  dplyr::filter(stringr::str_detect(countryDistribution, pattern = "Indonesia")) |> 
+  # Remove author initial. The REGEX pattern will match any a single letter UTF-8 char
+  # followed by dot (.) and whitespaces.
+  dplyr::mutate(authority = stringr::str_remove_all(authoritySpeciesAuthor, pattern = "([\\p{L}]{1}\\.\\s)")) |>
+  dplyr::mutate(scientificNameAuthorship = ifelse(authorityParentheses == 1, paste0("(",authority, ", ", authoritySpeciesYear, ")"), paste0(authority, ", ", authoritySpeciesYear) )) |> 
+  dplyr::mutate(externalTaxonIdentifiers = paste0("mdd:", id)) |> 
+  dplyr::mutate(countryDistribution = stringr::str_replace_all(countryDistribution, pattern = "\\|", ";")) |> 
+  dplyr::mutate(countryDistribution = stringr::str_replace_all(otherCommonNames, pattern = "\\|", ";")) |> 
+  dplyr::rename(verbatimTypeLocality = typeLocality) |>
+  dplyr::rename(taxonOrder = order) |> 
+  dplyr::rename(taxonFamily = family) |>
+  dplyr::rename(originalNameAsDescribed = originalNameCombination) |> 
+  dplyr::rename(mainCommonName_EN = mainCommonName) |> 
+  dplyr::rename(otherCommonName_EN = otherCommonNames) |> 
+  dplyr::mutate(taxonClass = "Mammalia") |>
+  dplyr::mutate(species = paste0(genus, " ", specificEpithet))
+  
+colnames(indonesia)
+
+count <- indonesia |> 
+  dplyr::group_by(taxonOrder) |>
+  dplyr::count()
+
+readr::write_csv(indonesia, here::here("results", "indonesia.csv"))
+```
+
+## Papare Biodiv-INA
+
+```{r}
+template <- here::here("data", "template_isian_v0_2_0.csv")
+mdd.path <- here::here("results", "indonesia.csv")
+
+biodivina <- readr::read_csv(template)
+mdd_ina <- readr::read_csv(mdd.path) |> 
+  dplyr::select(-id)
+
+join <- biodivina |> 
+  dplyr::mutate(phyloGroupSort = as.numeric(phyloGroupSort)) |> 
+  dplyr::left_join(mdd_ina, by = "externalTaxonIdentifiers", suffix = c("", "")) |> 
+  dplyr::mutate(kingdom = "Animalia") |>
+  dplyr::mutate(phylum = "Chordata")
+
+readr::write_csv(join, here::here("results", "biodivina_mammals.csv"), na = "")
+```
