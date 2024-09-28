@@ -40,7 +40,7 @@ indonesia <- mdd |>
   dplyr::mutate(scientificNameAuthorship = ifelse(authorityParentheses == 1, paste0("(",authority, ", ", authoritySpeciesYear, ")"), paste0(authority, ", ", authoritySpeciesYear) )) |> 
   dplyr::mutate(externalTaxonIdentifiers = paste0("mdd:", id)) |> 
   dplyr::mutate(countryDistribution = stringr::str_replace_all(countryDistribution, pattern = "\\|", ";")) |> 
-  dplyr::mutate(countryDistribution = stringr::str_replace_all(otherCommonNames, pattern = "\\|", ";")) |> 
+  dplyr::mutate(otherCommonNames = stringr::str_replace_all(otherCommonNames, pattern = "\\|", ";")) |> 
   dplyr::rename(verbatimTypeLocality = typeLocality) |>
   dplyr::rename(taxonOrder = order) |> 
   dplyr::rename(taxonFamily = family) |>
