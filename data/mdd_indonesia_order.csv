@@ -1,0 +1,18 @@
+taxonOrder,phyloGroupSort,phyloGroup,biodivinaMammals,datasetID
+Monotremata,1,Monotremata,Metatheria,1
+Dasyuromorphia,2,"Dasyuromorphia, Peramelemorphia, Diprotodontia",Metatheria,1
+Peramelemorphia,2,"Dasyuromorphia, Peramelemorphia, Diprotodontia",Metatheria,1
+Diprotodontia,2,"Dasyuromorphia, Peramelemorphia, Diprotodontia",Diprotodontia,2
+Proboscidea,3,"Proboscidea, Sirenia",Proboscidea_Sirenia,3
+Sirenia,3,"Proboscidea, Sirenia",Proboscidea_Sirenia,3
+Eulipotyphla,4,Eulipotyphla,Eulipotyphla,4
+Pholidota,5,"Pholidota, Carnivora",Pholidota_Carnivora,5
+Carnivora,5,"Pholidota, Carnivora",Pholidota_Carnivora,5
+Perissodactyla,6,"Perissodactyla, Artiodactyla",Perissodactyla_Artiodactyla,6
+Artiodactyla,6,"Perissodactyla, Artiodactyla",Perissodactyla_Artiodactyla,6
+Chiroptera,7,Chiroptera,Chiroptera,7
+Dermoptera,8,"Dermoptera, Scandentia",Dermoptera_Scandentia,8
+Scandentia,8,"Dermoptera, Scandentia",Dermoptera_Scandentia,8
+Primates,9,Primates,Primates,9
+Lagomorpha,10,"Lagomorpha, Rodentia",Lagomorpha_Rodentia,10
+Rodentia,10,"Lagomorpha, Rodentia",Lagomorpha_Rodentia,10

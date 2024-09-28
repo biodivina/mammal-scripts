@@ -17,18 +17,21 @@ pacman::p_load(ggplot2)
 pacman::p_load(readr)
 pacman::p_load(dplyr)
 pacman::p_load(stringr)
-pacman::p_load(RColorBrewer)
-pacman::p_load(ggExtra)
-pacman::p_load(patchwork)
+pacman::p_load(openxlsx)
 
 source(here::here("R", "utils.R"))
 ```
 
 ## Load Data
+
 ```{r}
 mdd_path <- here::here("data", "MDD_v1_13.csv")
 mdd <- readr::read_csv(mdd_path)
+```
 
+## Clean MDD data and match column names with Biodiv-INA columns
+
+```{r}
 indonesia <- mdd |>
   dplyr::filter(stringr::str_detect(countryDistribution, pattern = "Indonesia")) |> 
   # Remove author initial. The REGEX pattern will match any a single letter UTF-8 char
@@ -53,24 +56,94 @@ count <- indonesia |>
   dplyr::group_by(taxonOrder) |>
   dplyr::count()
 
-readr::write_csv(indonesia, here::here("results", "indonesia.csv"))
+order <- indonesia |>
+  dplyr::distinct(taxonOrder) |> 
+  dplyr::mutate(phyloGroup = "") |>
+  dplyr::mutate(phyloGroupSort = "")  
+  
+
+readr::write_csv(order, here::here("results", "mdd_indonesia_order.csv"))
 ```
 
-## Papare Biodiv-INA
+## Transfer MDD data to the Biodiv-INA template
 
 ```{r}
-template <- here::here("data", "template_isian_v0_2_0.csv")
-mdd.path <- here::here("results", "indonesia.csv")
+orderData <- readr::read_csv(here::here("data", "mdd_indonesia_order.csv")) |> 
+  dplyr::rename(datasetNames = biodivinaMammals)
+biodivina <- readr::read_csv(here::here("data", "template_isian_v0_2_0.csv"))
 
-biodivina <- readr::read_csv(template)
-mdd_ina <- readr::read_csv(mdd.path) |> 
+biodivinaCols <- colnames(biodivina)
+mdd_ina <- indonesia |>  
+  dplyr::select(any_of(biodivinaCols)) |> 
   dplyr::select(-id)
 
-join <- biodivina |> 
+final_data <- biodivina |> 
   dplyr::mutate(phyloGroupSort = as.numeric(phyloGroupSort)) |> 
   dplyr::left_join(mdd_ina, by = "externalTaxonIdentifiers", suffix = c("", "")) |> 
+  dplyr::left_join(orderData, by = "taxonOrder", suffix = c("", "")) |> 
   dplyr::mutate(kingdom = "Animalia") |>
-  dplyr::mutate(phylum = "Chordata")
+  dplyr::mutate(phylum = "Chordata") |>
+  dplyr::mutate(taxonRank = "species") |> 
+  dplyr::mutate(kkID = 405)
 
-readr::write_csv(join, here::here("results", "biodivina_mammals.csv"), na = "")
+colnames(final_data)
+
+readr::write_csv(final_data, here::here("results", "biodivina_mammals.csv"), na = "")
 ```
+
+## Export to Excel
+
+```{r}
+dataset <- orderData |> 
+  dplyr::distinct(datasetNames) |> 
+  dplyr::pull(datasetNames)
+
+create_dataset <- function(selectedDataset) {
+  res <- final_data |> 
+    dplyr::filter(datasetNames == selectedDataset)
+  
+  res
+}
+
+wb <- createWorkbook()
+
+write_xlxs <- function(data, name) {
+  openxlsx::addWorksheet(
+    wb = wb, 
+    sheetName = name,
+    )
+  data |>
+    dplyr::select(-datasetNames) |> 
+    openxlsx::writeData(
+    wb = wb,
+    sheet = name,
+    )
+}
+
+purrr::map(dataset, create_xlsx) |> 
+  purrr::map2(dataset, write_xlxs)
+
+output_path <- here::here("results", "mammal_indonesia.xlsx")
+saveWorkbook(wb, output_path, overwrite = TRUE)
+```
+
+## Clean curator names
+
+```{r}
+curators <- readr::read_csv(here::here("data", "pj_KK_Mammalia.csv")) |> 
+  janitor::clean_names() |> 
+  dplyr::rename(taxonFamily = nama_taksa)
+
+
+final_curators <- final_data |> 
+  dplyr::group_by(taxonOrder, taxonFamily, datasetNames, phyloGroupSort) |> 
+  dplyr::count(name = "jumlah_taksa") |> 
+  dplyr::right_join(curators, by = "taxonFamily") |> 
+  dplyr::select(!c(jumlah, no)) |> 
+  dplyr::arrange(phyloGroupSort) |> 
+  dplyr::relocate(phyloGroupSort)
+
+readr::write_csv(final_curators, here::here("results", "nama_kurator.csv"), na = "")
+```
+
+

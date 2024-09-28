@@ -1,0 +1,58 @@
+phyloGroupSort,taxonOrder,taxonFamily,datasetNames,jumlah_taksa,penanggung_jawab
+1,Monotremata,Tachyglossidae,Metatheria,4,Nurul Inayah
+2,Dasyuromorphia,Dasyuridae,Metatheria,16,
+2,Diprotodontia,Acrobatidae,Diprotodontia,1,
+2,Diprotodontia,Burramyidae,Diprotodontia,1,
+2,Diprotodontia,Macropodidae,Diprotodontia,14,
+2,Diprotodontia,Petauridae,Diprotodontia,6,Nurul Inayah
+2,Diprotodontia,Phalangeridae,Diprotodontia,20,"Nurul Inayah,Fajar Alfitrian"
+2,Diprotodontia,Pseudocheiridae,Diprotodontia,9,
+2,Peramelemorphia,Peramelidae,Metatheria,9,Nurul Inayah
+3,Proboscidea,Elephantidae,Proboscidea_Sirenia,1,"Arkanniti, Fadhil R."
+3,Sirenia,Dugongidae,Proboscidea_Sirenia,1,Antonious Tyawidyono
+4,Eulipotyphla,Erinaceidae,Eulipotyphla,6,Heru Handika
+4,Eulipotyphla,Soricidae,Eulipotyphla,45,"Heru Handika, Yuda Awi, Zulkurnia Irsaf"
+5,Carnivora,Canidae,Pholidota_Carnivora,1,"Inda DS, Nabila NK, Alfonsus TES, M. Ryan M, Ferdi"
+5,Carnivora,Felidae,Pholidota_Carnivora,9,"Inda DS, Nabila NK, Alfonsus TES, M. Ryan M, Ferdi"
+5,Carnivora,Herpestidae,Pholidota_Carnivora,3,"Inda DS, Nabila NK, Alfonsus TES, M. Ryan M, Ferdi"
+5,Carnivora,Mephitidae,Pholidota_Carnivora,1,"Inda DS, Nabila NK, Alfonsus TES, M. Ryan M, Ferdi"
+5,Carnivora,Mustelidae,Pholidota_Carnivora,9,"Inda DS, Nabila NK, Alfonsus TES, M. Ryan M, Ferdi"
+5,Carnivora,Prionodontidae,Pholidota_Carnivora,1,"Inda DS, Nabila NK, Alfonsus TES, M. Ryan M, Ferdi"
+5,Carnivora,Ursidae,Pholidota_Carnivora,1,"Inda DS, Nabila NK, Alfonsus TES, M. Ryan M, Ferdi"
+5,Carnivora,Viverridae,Pholidota_Carnivora,11,"Inda DS, Nabila NK, Alfonsus TES, M. Ryan M, Ferdi"
+5,Pholidota,Manidae,Pholidota_Carnivora,1,Ferdi
+6,Artiodactyla,Balaenopteridae,Perissodactyla_Artiodactyla,9,Antonious Tyawidyono
+6,Artiodactyla,Bovidae,Perissodactyla_Artiodactyla,4,"Raisa tatum, Fadhil R."
+6,Artiodactyla,Cervidae,Perissodactyla_Artiodactyla,5,"Alvin.ws, Fandika"
+6,Artiodactyla,Delphinidae,Perissodactyla_Artiodactyla,18,Antonious Tyawidyono
+6,Artiodactyla,Kogiidae,Perissodactyla_Artiodactyla,2,Antonious Tyawidyono
+6,Artiodactyla,Phocoenidae,Perissodactyla_Artiodactyla,1,Antonious Tyawidyono
+6,Artiodactyla,Physeteridae,Perissodactyla_Artiodactyla,1,Antonious Tyawidyono
+6,Artiodactyla,Suidae,Perissodactyla_Artiodactyla,7,Alvin.ws
+6,Artiodactyla,Tragulidae,Perissodactyla_Artiodactyla,3,Raisa tatum
+6,Artiodactyla,Ziphiidae,Perissodactyla_Artiodactyla,4,Antonious Tyawidyono
+6,Perissodactyla,Rhinocerotidae,Perissodactyla_Artiodactyla,2,"Raisa tatum, Arkanniti"
+6,Perissodactyla,Tapiridae,Perissodactyla_Artiodactyla,1,"Raisa tatum, Arkanniti"
+7,Chiroptera,Emballonuridae,Chiroptera,12,"Alfath Fanidya, A. Restu D, Siwi AM"
+7,Chiroptera,Hipposideridae,Chiroptera,31,"Alfath Fanidya, A. Restu D, Siwi AM"
+7,Chiroptera,Megadermatidae,Chiroptera,1,"Alfath Fanidya, A. Restu D, Siwi AM"
+7,Chiroptera,Miniopteridae,Chiroptera,9,"Alfath Fanidya, A. Restu D, Siwi AM"
+7,Chiroptera,Molossidae,Chiroptera,12,"Alfath Fanidya, A. Restu D, Siwi AM"
+7,Chiroptera,Nycteridae,Chiroptera,2,"Alfath Fanidya, A. Restu D, Siwi AM"
+7,Chiroptera,Pteropodidae,Chiroptera,79,"Alfath Fanidya, A. Restu D, Siwi AM"
+7,Chiroptera,Rhinolophidae,Chiroptera,25,"Alfath Fanidya, A. Restu D, Siwi AM"
+7,Chiroptera,Rhinopomatidae,Chiroptera,1,"Alfath Fanidya, A. Restu D, Siwi AM"
+7,Chiroptera,Vespertilionidae,Chiroptera,65,"Alfath Fanidya, A. Restu D, Siwi AM"
+8,Dermoptera,Cynocephalidae,Dermoptera_Scandentia,1,
+8,Scandentia,Ptilocercidae,Dermoptera_Scandentia,1,
+8,Scandentia,Tupaiidae,Dermoptera_Scandentia,14,Nurul Inayah
+9,Primates,Cercopithecidae,Primates,33,"Fandika, Ferdi, Iqbal Patiroi"
+9,Primates,Hominidae,Primates,3,"Fandika, Ferdi, Iqbal Patiroi"
+9,Primates,Hylobatidae,Primates,9,"Fandika, Ferdi, Iqbal Patiroi"
+9,Primates,Lorisidae,Primates,7,Indira
+9,Primates,Tarsiidae,Primates,13,Indira
+10,Lagomorpha,Leporidae,Lagomorpha_Rodentia,1,Ferdi
+10,Rodentia,Hystricidae,Lagomorpha_Rodentia,5,"Heru Handika, Endah Dwijayanti, Alfath Fanidya, Yuda Awi, Zulkurnia Irsaf"
+10,Rodentia,Muridae,Lagomorpha_Rodentia,182,"Heru Handika, Endah Dwijayanti, Alfath Fanidya, Yuda Awi, Zulkurnia Irsaf"
+10,Rodentia,Sciuridae,Lagomorpha_Rodentia,57,"Heru Handika, Endah Dwijayanti, Alfath Fanidya, Yuda Awi, Zulkurnia Irsaf"
+10,Rodentia,Spalacidae,Lagomorpha_Rodentia,1,
