@@ -51,6 +51,7 @@ indonesia <- mdd |>
   dplyr::mutate(species = paste0(genus, " ", specificEpithet))
   
 colnames(indonesia)
+colnames(mdd)
 
 count <- indonesia |> 
   dplyr::group_by(taxonOrder) |>
@@ -120,7 +121,7 @@ write_xlxs <- function(data, name) {
     )
 }
 
-purrr::map(dataset, create_xlsx) |> 
+purrr::map(dataset, create_dataset) |> 
   purrr::map2(dataset, write_xlxs)
 
 output_path <- here::here("results", "mammal_indonesia.xlsx")
