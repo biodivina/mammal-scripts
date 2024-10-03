@@ -27,6 +27,20 @@ source(here::here("R", "utils.R"))
 ```{r}
 mdd_path <- here::here("data", "MDD_v1_13.csv")
 mdd <- readr::read_csv(mdd_path)
+
+cites <- readr::read_csv(here::here("data", "CITES_2024-10-03-09_19.csv")) |> 
+  janitor::clean_names() |> 
+  dplyr::filter(class == "Mammalia") |> 
+  dplyr::rename(epithet = species) |> 
+  dplyr::rename(species = full_name) |> 
+  tidyr::drop_na(epithet) |> 
+  dplyr::select(c(species, current_listing)) |> 
+  dplyr::rename(citesStatus = current_listing)
+  
+indonesian_names <- readr::read_delim(here::here("data", "nama_indonesia_maryanto.csv"), delim = ";") |> 
+  dplyr::rename(species = nama_species) |> 
+  dplyr::rename(mainCommonName_ID = nama_indonesia) |> 
+  dplyr::mutate(across(everything(),stringr::str_trim))
 ```
 
 ## Clean MDD data and match column names with Biodiv-INA columns
@@ -52,6 +66,7 @@ indonesia <- mdd |>
   
 colnames(indonesia)
 colnames(mdd)
+colnames(cites)
 
 count <- indonesia |> 
   dplyr::group_by(taxonOrder) |>
@@ -62,7 +77,6 @@ order <- indonesia |>
   dplyr::mutate(phyloGroup = "") |>
   dplyr::mutate(phyloGroupSort = "")  
   
-
 readr::write_csv(order, here::here("results", "mdd_indonesia_order.csv"))
 ```
 
@@ -82,6 +96,8 @@ final_data <- biodivina |>
   dplyr::mutate(phyloGroupSort = as.numeric(phyloGroupSort)) |> 
   dplyr::left_join(mdd_ina, by = "externalTaxonIdentifiers", suffix = c("", "")) |> 
   dplyr::left_join(orderData, by = "taxonOrder", suffix = c("", "")) |> 
+  dplyr::left_join(indonesian_names, by = "species", suffix = c("", "")) |> 
+  dplyr::left_join(cites, by = "species", suffix = c("", "")) |> 
   dplyr::mutate(kingdom = "Animalia") |>
   dplyr::mutate(phylum = "Chordata") |>
   dplyr::mutate(taxonRank = "species") |> 
