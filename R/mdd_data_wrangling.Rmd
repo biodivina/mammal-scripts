@@ -160,6 +160,10 @@ final_curators <- final_data |>
   dplyr::arrange(phyloGroupSort) |> 
   dplyr::relocate(phyloGroupSort)
 
+dataset_counts <- final_data |> 
+  dplyr::group_by(datasetNames) |> 
+  dplyr::count(name = "taxon_counts")
+
 readr::write_csv(final_curators, here::here("results", "nama_kurator.csv"), na = "")
 ```
 
