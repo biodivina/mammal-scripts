@@ -165,6 +165,7 @@ dataset_counts <- final_data |>
   dplyr::count(name = "taxon_counts")
 
 readr::write_csv(final_curators, here::here("results", "nama_kurator.csv"), na = "")
+readr::write_csv(dataset_counts, here::here("results", "dataset_counts.csv"), na = "")
 ```
 
 
